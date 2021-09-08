@@ -17,17 +17,20 @@ const baseURL = `https://quote-garden.herokuapp.com/api/v3/quotes/random`;
 
 export default function Home() {
     const [quote, setQuote] = useState(null);
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
-        setTimeout(() => {
-            getRandomQuote();
-        }, 2000);
+        getRandomQuote();
     }, []);
 
     const getRandomQuote = async () => {
-        const { data } = await axios.get(baseURL);
-        setQuote(data.data);
+        setIsLoading(true);
+        try {
+            const { data } = await axios.get(baseURL);
+            setQuote(data.data);
+        } catch (error) {
+            console.log(error);
+        }
         setIsLoading(false);
     };
 
