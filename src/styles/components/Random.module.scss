@@ -1,0 +1,22 @@
+.random {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    cursor: pointer;
+
+    &:hover {
+        svg {
+            transform: rotate(180deg);
+        }
+    }
+
+    span {
+        margin-right: 5px;
+    }
+
+    svg {
+        transition: 300ms;
+    }
+}

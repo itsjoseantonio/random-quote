@@ -1,0 +1,45 @@
+@import '../abstracts/variables';
+@import '../abstracts/mixins';
+
+.wrapperAuthor {
+    padding-left: 60px;
+    margin-top: 100px;
+}
+
+.quoteAuthor {
+    padding: 50px 25px;
+    background-color: transparent;
+    transition: all 200ms ease-in-out;
+    cursor: pointer;
+    position: relative;
+
+    &:hover {
+        background-color: $grey-2;
+
+        h2 {
+            color: $white;
+        }
+
+        svg {
+            fill: $white;
+        }
+    }
+
+    h2 {
+        color: $dark-grey;
+        font-size: 28px;
+        margin-bottom: 10px;
+    }
+    span {
+        color: $grey;
+        font-size: 14px;
+    }
+
+    svg {
+        fill: transparent;
+        position: absolute;
+        top: 50%;
+        margin-top: -12px;
+        right: 30px;
+    }
+}
