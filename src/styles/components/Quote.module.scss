@@ -8,5 +8,10 @@
         font-size: 36px;
         padding-left: 60px;
         border-left: 5px solid $yellow;
+
+        @include breakpoint-down(sm) {
+            font-size: 24px;
+            padding-left: 30px;
+        }
     }
 }
