@@ -13,7 +13,7 @@ import Loader from '../components/Loader';
 import styles from '../styles/pages/Home.module.scss';
 
 // Helpers //
-import { removeSpecialCharacters } from '../utils/helpers';
+import { replaceWhiteSpaces } from '../utils/helpers';
 
 // API //
 const baseURL = `https://quote-garden.herokuapp.com/api/v3/quotes/random`;
@@ -32,6 +32,7 @@ export default function Home() {
         try {
             const { data } = await axios.get(baseURL);
             setQuote(data.data);
+            console.log(data.data);
         } catch (error) {
             console.log(error);
         }
@@ -53,12 +54,16 @@ export default function Home() {
                                     quoteAuthor,
                                     quoteGenre,
                                 }) => {
-                                    const cleanAuthorName =
-                                        removeSpecialCharacters(quoteAuthor);
+                                    const cleanAuthorName = replaceWhiteSpaces(
+                                        quoteAuthor,
+                                        '-'
+                                    );
                                     return (
                                         <Quote key={_id} text={quoteText}>
                                             <Link
-                                                href={`/authors/${cleanAuthorName}`}
+                                                href={{
+                                                    pathname: `/authors/${cleanAuthorName}`,
+                                                }}
                                             >
                                                 <a>
                                                     <AuthorQuote

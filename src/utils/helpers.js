@@ -1,5 +1,9 @@
-const removeSpecialCharacters = (string) => {
-    return string.replace(/[^a-zA-Z0-9]/g, '');
+const replaceWhiteSpaces = (string, character) => {
+    return string.replace(/\s/g, character);
 };
 
-export { removeSpecialCharacters };
+const replaceHyphen = (string, character) => {
+    return string.replace(/-/g, character);
+};
+
+export { replaceWhiteSpaces, replaceHyphen };
