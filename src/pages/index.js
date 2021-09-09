@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
@@ -11,12 +12,16 @@ import Loader from '../components/Loader';
 // Styles //
 import styles from '../styles/pages/Home.module.scss';
 
+// Helpers //
+import { removeSpecialCharacters } from '../utils/helpers';
+
 // API //
 const baseURL = `https://quote-garden.herokuapp.com/api/v3/quotes/random`;
 
 export default function Home() {
     const [quote, setQuote] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
+    const [author, setAuthor] = useState('');
 
     useEffect(() => {
         getRandomQuote();
@@ -47,14 +52,24 @@ export default function Home() {
                                     quoteText,
                                     quoteAuthor,
                                     quoteGenre,
-                                }) => (
-                                    <Quote key={_id} text={quoteText}>
-                                        <AuthorQuote
-                                            name={quoteAuthor}
-                                            genre={quoteGenre}
-                                        />
-                                    </Quote>
-                                )
+                                }) => {
+                                    const cleanAuthorName =
+                                        removeSpecialCharacters(quoteAuthor);
+                                    return (
+                                        <Quote key={_id} text={quoteText}>
+                                            <Link
+                                                href={`/authors/${cleanAuthorName}`}
+                                            >
+                                                <a>
+                                                    <AuthorQuote
+                                                        name={quoteAuthor}
+                                                        genre={quoteGenre}
+                                                    />
+                                                </a>
+                                            </Link>
+                                        </Quote>
+                                    );
+                                }
                             )}
                         {isLoading && <Loader />}
                     </div>
