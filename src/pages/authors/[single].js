@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import Link from 'next/link';
 
 // Components //
 import Seo from '../../components/Seo';
@@ -48,12 +49,33 @@ const Single = ({ author }) => {
         <React.Fragment>
             <Seo title={`Random Quote Generator | ${authorName}`} />
             <div className={styles.container}>
-                <div className={styles.authorContent}>
-                    <h2>{authorName}</h2>
-                    {data.data.map(({ _id, quoteText }) => (
-                        <Quote key={_id} text={quoteText} />
-                    ))}
-                </div>
+                <span className={styles.back}>
+                    <Link
+                        href={{
+                            pathname: '/',
+                        }}
+                    >
+                        <a>
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                height="24px"
+                                viewBox="0 0 24 24"
+                                width="24px"
+                            >
+                                <path d="M0 0h24v24H0z" fill="none" />
+                                <path d="M16.01 11H4v2h12.01v3L20 12l-3.99-4z" />
+                            </svg>
+                        </a>
+                    </Link>
+                </span>
+                <main className={styles.main}>
+                    <div className={styles.authorContent}>
+                        <h2>{authorName}</h2>
+                        {data.data.map(({ _id, quoteText }) => (
+                            <Quote key={_id} text={quoteText} />
+                        ))}
+                    </div>
+                </main>
             </div>
         </React.Fragment>
     );

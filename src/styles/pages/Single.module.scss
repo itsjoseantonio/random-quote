@@ -1,17 +1,42 @@
+@import '../abstracts/mixins';
+
 .container {
+    position: relative;
+    padding: 50px 15px;
+}
+
+.main {
     max-width: 750px;
     margin: 0 auto;
-    padding: 50px 15px;
-    position: relative;
 }
 
 .authorContent {
     h2 {
         margin-bottom: 40px;
         padding-left: 60px;
+
+        @include breakpoint-down(sm) {
+            padding-left: 30px;
+        }
     }
 
     div {
         margin-bottom: 60px;
+    }
+}
+
+.back {
+    position: absolute;
+    left: 20px;
+    top: 20px;
+    transform: rotate(180deg);
+
+    @include breakpoint-down(sm) {
+        top: 10px;
+        left: 10px;
+    }
+
+    a {
+        display: inline-block;
     }
 }
