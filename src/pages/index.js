@@ -21,7 +21,6 @@ const baseURL = `https://quote-garden.herokuapp.com/api/v3/quotes/random`;
 export default function Home() {
     const [quote, setQuote] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
-    const [author, setAuthor] = useState('');
 
     useEffect(() => {
         getRandomQuote();
