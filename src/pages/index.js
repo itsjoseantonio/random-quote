@@ -1,88 +1,20 @@
-// import Link from 'next/link';
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React from 'react';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
-// Components //
-import Seo from '../components/Seo';
-import Quote from '../components/Quote';
-import AuthorQuote from '../components/AuthorQuote';
-import Random from '../components/Random';
-import Loader from '../components/Loader';
+// Containers //
+import Home from '../containers/Home';
+import SingleAuthor from '../containers/SingleAuthor';
 
-// Styles //
-import styles from '../styles/pages/Home.module.scss';
-
-// Helpers //
-import { replaceWhiteSpaces } from '../utils/helpers';
-
-// API //
-const baseURL = `https://quote-garden.herokuapp.com/api/v3/quotes/random`;
-
-export default function Home() {
-    const [quote, setQuote] = useState(null);
-    const [isLoading, setIsLoading] = useState(false);
-
-    useEffect(() => {
-        getRandomQuote();
-    }, []);
-
-    const getRandomQuote = async () => {
-        setIsLoading(true);
-        try {
-            const { data } = await axios.get(baseURL);
-            setQuote(data.data);
-            console.log(data.data);
-        } catch (error) {
-            console.log(error);
-        }
-        setIsLoading(false);
-    };
-
+export default function App() {
     return (
         <React.Fragment>
             <Router>
-                <Seo />
-                <div className={styles.container}>
-                    <main className={styles.main}>
-                        <Random onClick={getRandomQuote} />
-                        <div className={styles.wrapperQuote}>
-                            {quote &&
-                                quote.map(
-                                    ({
-                                        _id,
-                                        quoteText,
-                                        quoteAuthor,
-                                        quoteGenre,
-                                    }) => {
-                                        const cleanAuthorName =
-                                            replaceWhiteSpaces(
-                                                quoteAuthor,
-                                                '-'
-                                            );
-                                        return (
-                                            <Quote key={_id} text={quoteText}>
-                                                <Link
-                                                    to={`/authors/${cleanAuthorName}`}
-                                                >
-                                                    <a>
-                                                        <AuthorQuote
-                                                            name={quoteAuthor}
-                                                            genre={quoteGenre}
-                                                        />
-                                                    </a>
-                                                </Link>
-                                            </Quote>
-                                        );
-                                    }
-                                )}
-                            {isLoading && <Loader />}
-                        </div>
-                    </main>
-                </div>
                 <Switch>
                     <Route path="/authors/:name">
-                        <div>Componente :D</div>
+                        <SingleAuthor />
+                    </Route>
+                    <Route path="/">
+                        <Home />
                     </Route>
                 </Switch>
             </Router>

@@ -1,9 +1,7 @@
-// import Route from 'next/router';
-
-// // Components//
+// Components//
 // import ProgressBar from '@badrap/bar-of-progress';
 
-// // Styles //
+// Styles //
 import '../styles/global/index.scss';
 
 // const progress = new ProgressBar({
@@ -12,22 +10,17 @@ import '../styles/global/index.scss';
 //     delay: 100,
 // });
 
-// // Router events
+// Router events
 // Route.events.on('routeChangeStart', progress.start);
 // Route.events.on('routeChangeComplete', progress.finish);
 // Route.events.on('routeChangeError', progress.finish);
 
-// function MyApp({ Component, pageProps }) {
-//     return <Component {...pageProps} />;
-// }
-
-// export default MyApp;
 
 import { AppProps } from 'next/app';
 
 function MyApp({ Component, pageProps }: AppProps) {
     return (
-        <div>
+        <div suppressHydrationWarning>
             {typeof window === 'undefined' ? null : (
                 <Component {...pageProps} />
             )}

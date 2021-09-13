@@ -11,5 +11,6 @@ Random quote generator
 -   Nextjs
 -   React state - useState()
 -   React effects - useEffect()
+-   React router
 -   Parent and child components
 -   Css modules
