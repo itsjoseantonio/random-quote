@@ -1,3 +1,11 @@
 module.exports = {
-  reactStrictMode: true,
-}
+    reactStrictMode: true,
+    async rewrites() {
+        return [
+            {
+                source: '/:any*',
+                destination: '/',
+            },
+        ];
+    },
+};

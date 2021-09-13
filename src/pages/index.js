@@ -1,6 +1,7 @@
-import Link from 'next/link';
+// import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
 // Components //
 import Seo from '../components/Seo';
@@ -40,45 +41,51 @@ export default function Home() {
 
     return (
         <React.Fragment>
-            <Seo />
-            <div className={styles.container}>
-                <main className={styles.main}>
-                    <Random onClick={getRandomQuote} />
-                    <div className={styles.wrapperQuote}>
-                        {quote &&
-                            quote.map(
-                                ({
-                                    _id,
-                                    quoteText,
-                                    quoteAuthor,
-                                    quoteGenre,
-                                }) => {
-                                    const cleanAuthorName = replaceWhiteSpaces(
+            <Router>
+                <Seo />
+                <div className={styles.container}>
+                    <main className={styles.main}>
+                        <Random onClick={getRandomQuote} />
+                        <div className={styles.wrapperQuote}>
+                            {quote &&
+                                quote.map(
+                                    ({
+                                        _id,
+                                        quoteText,
                                         quoteAuthor,
-                                        '-'
-                                    );
-                                    return (
-                                        <Quote key={_id} text={quoteText}>
-                                            <Link
-                                                href={{
-                                                    pathname: `/authors/${cleanAuthorName}`,
-                                                }}
-                                            >
-                                                <a>
-                                                    <AuthorQuote
-                                                        name={quoteAuthor}
-                                                        genre={quoteGenre}
-                                                    />
-                                                </a>
-                                            </Link>
-                                        </Quote>
-                                    );
-                                }
-                            )}
-                        {isLoading && <Loader />}
-                    </div>
-                </main>
-            </div>
+                                        quoteGenre,
+                                    }) => {
+                                        const cleanAuthorName =
+                                            replaceWhiteSpaces(
+                                                quoteAuthor,
+                                                '-'
+                                            );
+                                        return (
+                                            <Quote key={_id} text={quoteText}>
+                                                <Link
+                                                    to={`/authors/${cleanAuthorName}`}
+                                                >
+                                                    <a>
+                                                        <AuthorQuote
+                                                            name={quoteAuthor}
+                                                            genre={quoteGenre}
+                                                        />
+                                                    </a>
+                                                </Link>
+                                            </Quote>
+                                        );
+                                    }
+                                )}
+                            {isLoading && <Loader />}
+                        </div>
+                    </main>
+                </div>
+                <Switch>
+                    <Route path="/authors/:name">
+                        <div>Componente :D</div>
+                    </Route>
+                </Switch>
+            </Router>
         </React.Fragment>
     );
 }
